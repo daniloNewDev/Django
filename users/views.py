@@ -4,7 +4,8 @@ from .models import Users
 
 def index(request):
   myusers = Users.objects.all().values()
-  output =""
-  for x in myusers:
-    output += x["firstname"]
-  return HttpResponse(output)
+  template = loader.get_template('index.html')
+  context ={
+    'myusers': myusers,
+  }
+  return HttpResponse(template.render(context, request))
