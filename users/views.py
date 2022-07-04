@@ -1,6 +1,10 @@
 from django.http import HttpResponse
 from django.template import loader
+from .models import Users
 
 def index(request):
-  template = loader.get_template('myfirst.html')
-  return HttpResponse(template.render())
+  myusers = Users.objects.all().values()
+  output =""
+  for x in myusers:
+    output += x["firstname"]
+  return HttpResponse(output)
